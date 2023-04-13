@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div id="game"></div>
+<script src="//cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
+<script>
+    this.socket.connect();
+
+    this.socket.on("connect", async () => {
+        this.socket.emit("join", "mongodb");
+    });
+
+    this.socket.on("joined", async (gameId) => {
+        let result = await fetch("http://localhost:3000/chats?room=" + gameId).then(response => response.json());
+        this.chatMessages = result.messages;
+        this.chatMessages.push("Welcome to " + gameId);
+        if (this.chatMessages.length > 20) {
+            this.chatMessages.shift();
+        }
+        this.chat.setText(this.chatMessages);
+    });
+
+    this.socket.on("message", (message) => {
+        this.chatMessages.push(message);
+        if(this.chatMessages.length > 20) {
+            this.chatMessages.shift();
+        }
+        this.chat.setText(this.chatMessages);
+    });
+</script>
+</body>
+</html>
