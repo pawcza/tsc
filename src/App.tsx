@@ -10,6 +10,8 @@ import CodesList from "components/CodesList";
 
 import {CodeType, TextType} from "types/db";
 
+import logo from "images/logo.png";
+
 export default function App() {
     const GlobalStyle = createGlobalStyle`
       * {
@@ -114,7 +116,7 @@ export default function App() {
             {/*<ConnectionState isConnected={isConnected} />*/}
             {/*<ConnectionManager />*/}
             <Header>The Stoner Codex</Header>
-            <Logo src="./logo.png" />
+            <Logo src={logo} />
             <CodesList codes={codes} />
         </div>
     );
