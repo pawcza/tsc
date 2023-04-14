@@ -113,8 +113,8 @@ export default function App() {
     return (
         <div>
             <GlobalStyle />
-            {/*<ConnectionState isConnected={isConnected} />*/}
-            {/*<ConnectionManager />*/}
+            <ConnectionState isConnected={isConnected} />
+            <ConnectionManager />
             <Header>The Stoner Codex</Header>
             <Logo src={logo} />
             <CodesList codes={codes} />
