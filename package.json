@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-cli serve --mode=development --env development --open --hot",
-    "prod": "webpack-cli --mode=production --env production",
+    "build": "webpack-cli --mode=production --env production",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix"
   },
