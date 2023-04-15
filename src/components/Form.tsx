@@ -23,7 +23,7 @@ const Form = ({available, codeId, number}) => {
                     layout
                     value={inputVal}
                     onChange={(e) => setInputVal(e.target.value)}
-                    placeholder={`...`}
+                    placeholder={`${number} means...`}
                 />
             </StyledForm>
         )
@@ -42,6 +42,7 @@ export const Input = styled(motion.input)`
     font-family: "Roboto Mono", monospace;
     border: 0;
     min-width: 200px;
+    padding: 4px 0 24px 8px;
 
     &:focus {
         outline: 0;
