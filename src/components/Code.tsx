@@ -60,21 +60,20 @@ export const Number = styled.div`
     padding: 8px;
     cursor: default;
     user-select: none;
-    margin-right: auto;
+    margin-right: 15px;
     height: 100%;
 `;
 export const CodeLine = styled.p`
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 2.5em;
     border-bottom: 4px solid #609202;
     border: 4px;
 `;
 export const TotalLine = styled.span`
     margin-top: 4px;
-    background: #609202;
+    color: #609202;
     padding: 2px 4px;
-    color: white;
-    font-weight: 100;
+    font-weight: 700;
     border-radius: 2px;
 `;
 
@@ -83,13 +82,10 @@ export const TextGroup = styled(Reorder.Group)`
     width: 100%;
     display: flex;
     font-size: 1em;
-    justify-content: center;
-    align-items: flex-end;
 `;
 
 export const TextsContainer = styled(motion.div)`
-    width: 100%;
-    padding: 26px 12px 0 26px;
+    padding: 12px 0;
     display: flex;
     align-items: center;
     overflow-x: auto;
@@ -98,23 +94,16 @@ export const TextsContainer = styled(motion.div)`
 
 export const TextItem = styled(Reorder.Item)`
     list-style: none;
+    font-size: 1.5em;
     padding: 8px;
     position: relative;
     white-space: nowrap;
     border-left: 1px solid #ebebeb;
     scroll-snap-align: start;
 
-  &:first-of-type {
-        font-size: 1.5em;
+    &:first-of-type {
         font-weight: 700;
         padding: 8px 16px;
-    }
-
-    &:hover {
-        > div {
-            opacity: 1;
-            pointer-events: all;
-        }
     }
 `;
 
@@ -122,12 +111,7 @@ export const TextLine = styled.div``;
 export const Controller = styled.div`
     position: absolute;
     bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    pointer-events: none;
-    outline: 1px solid #ebebeb;
-    border-radius: 4px;
+    opacity: 1;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -136,7 +120,7 @@ export const Controller = styled.div`
 export const VoteUp = styled.span`
     font-weight: 400;
     font-size: 22px;
-    padding: 0 12px;
+    padding: 0 8px;
     cursor: pointer;
     transition: 0.25s ease-out;
 
@@ -148,10 +132,9 @@ export const VoteDown = styled(VoteUp)``;
 
 export const Votes = styled.span`
     height: 100%;
-    color: white;
     line-height: 28px;
     font-size: 16px;
-    font-weight: ${({votes}) => (votes > 100 ? "700" : "400")};
-    background: ${({votes}) => (votes >= 0 ? "#5D9C59" : "#DF2E38")};
-    padding: 0 12px;
+    font-weight: 700;
+    color: ${({votes}) => (votes >= 0 ? "#5D9C59" : "#DF2E38")};
+    padding: 0 8px;
 `;
