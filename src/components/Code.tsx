@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {socket} from "business/socket";
 
 import Form from "components/Form";
+import VoteCounter from "components/VoteCounter";
 
 const Code = ({number, texts, totalVotes, _id}) => {
     const rowRef = useRef(null);
@@ -27,7 +28,7 @@ const Code = ({number, texts, totalVotes, _id}) => {
         <Wrapper axis="x" values={items} onReorder={setItems} as={motion.ul} ref={rowRef}>
             <Left>
                 <Number>{number}</Number>
-                <Counter votes={totalVotes}>{totalVotes}</Counter>
+                <VoteCounter votes={totalVotes} />
             </Left>
             <Right>
                 <AnimatePresence initial={false}>
@@ -45,7 +46,7 @@ const Code = ({number, texts, totalVotes, _id}) => {
                             <Votes>
                                 <VoteUp onClick={() => onVote(_id, item._id, true)}>+</VoteUp>
                                 <VoteDown onClick={() => onVote(_id, item._id, false)}>-</VoteDown>
-                                <Counter votes={item.votes}>{item.votes}</Counter>
+                                <VoteCounter votes={item.votes} />
                             </Votes>
                         </TextWrapper>
                     ))}
@@ -66,7 +67,7 @@ export const Left = styled.div`
 export const Number = styled.p`
     font-weight: 700;
     font-size: 2.5em;
-    line-height: 100%;
+    line-height: 32px;
     border-bottom: 4px solid #609202;
     border: 4px;
 `;
@@ -89,14 +90,13 @@ export const Right = styled(motion.div)`
 export const TextWrapper = styled(Reorder.Item)`
     list-style: none;
     font-size: 1em;
-    padding: 4px 16px;
+    padding: 0 16px;
     position: relative;
     border-left: 1px solid #ebebeb;
     scroll-snap-align: start;
 
     &:first-of-type {
         font-weight: 700;
-        font-size: 2em;
     }
 `;
 
@@ -104,6 +104,9 @@ export const Text = styled.p`
     line-height: 32px;
 `;
 export const Votes = styled.div`
+    height: 28px;
+    display: flex;
+    align-items: center;
 `;
 
 export const VoteUp = styled.span`
@@ -112,20 +115,14 @@ export const VoteUp = styled.span`
     padding: 0 8px;
     cursor: pointer;
     transition: 0.25s ease-out;
-    height: 20px;
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
     display: inline-block;
+    margin-right: 4px;
 
     &:hover {
         background: #f8f8f8;
     }
 `;
 export const VoteDown = styled(VoteUp)``;
-
-export const Counter = styled.span`
-    height: 100%;
-    line-height: 28px;
-    font-size: 16px;
-    font-weight: 700;
-    color: ${({votes}) => (votes >= 0 ? "#5D9C59" : "#DF2E38")};
-    padding: 0 4px;
-`;
