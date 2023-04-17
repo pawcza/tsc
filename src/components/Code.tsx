@@ -48,15 +48,19 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
                         >
                             <Text>{item.text}</Text>
                             <Votes>
-                                {!disabled && (
-                                    <VoteUp onClick={() => onVote(_id, item._id, true)}>+</VoteUp>
-                                )}
-                                {!disabled && (
-                                    <VoteDown onClick={() => onVote(_id, item._id, false)}>
-                                        -
-                                    </VoteDown>
-                                )}
-                                <VoteCounter votes={item.votes} />
+                                <AnimatePresence>
+                                    <VoteCounter votes={item.votes} />
+                                    {!disabled && (
+                                        <motion.div exit={{opacity: [null, 0], width: [null, 0]}}>
+                                            <VoteUp onClick={() => onVote(_id, item._id, true)}>
+                                                +
+                                            </VoteUp>
+                                            <VoteDown onClick={() => onVote(_id, item._id, false)}>
+                                                -
+                                            </VoteDown>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </Votes>
                         </TextWrapper>
                     ))}
@@ -130,7 +134,7 @@ export const Votes = styled.div`
     `}
 `;
 
-export const VoteUp = styled.span`
+export const VoteUp = styled(motion.span)`
     font-weight: 400;
     font-size: 18px;
     padding: 0 8px;

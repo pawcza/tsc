@@ -132,9 +132,11 @@ export default function App() {
             <Paragraph>
                 Welcome to <b>The Stoner Codex</b>.<br />
                 <br />
-                You can vote once on every code password and add one password every hour!<br />
+                You can vote once on each code`s password and add one password every hour (votes
+                reset at full hour).
                 <br />
-                As the content here is unregulated please be respectful. Peace :)
+                <br />
+                As the content here is not moderated, please be respectful. Peace :)
             </Paragraph>
             <CodesList codes={codes} user={user} />
         </>
