@@ -7,9 +7,10 @@ import {socket} from "business/socket";
 import Form from "components/Form";
 import VoteCounter from "components/VoteCounter";
 
-const Code = ({number, texts, totalVotes, _id}) => {
+const Code = ({number, texts, totalVotes, _id, user}) => {
     const rowRef = useRef(null);
     const [items, setItems] = useState(texts.sort((a, b) => b.votes - a.votes));
+    const disabled = user?.codes?.includes(_id);
 
     useEffect(() => {
         const sorted = texts.sort((a, b) => b.votes - a.votes);
@@ -20,12 +21,15 @@ const Code = ({number, texts, totalVotes, _id}) => {
         socket.emit("vote", codeId, textId, inc);
     };
 
-    const onDrag = (e, pan) => {
-        console.log(pan);
-    };
-
     return (
-        <Wrapper axis="x" values={items} onReorder={setItems} as={motion.ul} ref={rowRef}>
+        <Wrapper
+            axis="x"
+            values={items}
+            onReorder={setItems}
+            as={motion.ul}
+            ref={rowRef}
+            disabled={disabled}
+        >
             <Left>
                 <Number>{number}</Number>
                 <VoteCounter votes={totalVotes} />
@@ -44,13 +48,21 @@ const Code = ({number, texts, totalVotes, _id}) => {
                         >
                             <Text>{item.text}</Text>
                             <Votes>
-                                <VoteUp onClick={() => onVote(_id, item._id, true)}>+</VoteUp>
-                                <VoteDown onClick={() => onVote(_id, item._id, false)}>-</VoteDown>
+                                {!disabled && (
+                                    <VoteUp onClick={() => onVote(_id, item._id, true)}>+</VoteUp>
+                                )}
+                                {!disabled && (
+                                    <VoteDown onClick={() => onVote(_id, item._id, false)}>
+                                        -
+                                    </VoteDown>
+                                )}
                                 <VoteCounter votes={item.votes} />
                             </Votes>
                         </TextWrapper>
                     ))}
-                    <Form available={texts.length < 10} codeId={_id} number={number} />
+                    {!user?.added && (
+                        <Form available={texts.length < 10} codeId={_id} number={number} />
+                    )}
                 </AnimatePresence>
             </Right>
         </Wrapper>
@@ -77,6 +89,8 @@ export const Wrapper = styled(Reorder.Group)`
     width: 100%;
     display: flex;
     font-size: 1em;
+    transition: 0.3s ease-in-out;
+    ${({disabled}) => disabled && `opacity: .75;`}
 `;
 
 export const Right = styled(motion.div)`
@@ -104,9 +118,16 @@ export const Text = styled.p`
     line-height: 32px;
 `;
 export const Votes = styled.div`
+    user-select: none;
     height: 28px;
     display: flex;
     align-items: center;
+    transition: 0.3s ease-out;
+    ${({disabled}) =>
+        disabled &&
+        `
+        pointer-events: none;
+    `}
 `;
 
 export const VoteUp = styled.span`

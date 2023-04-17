@@ -12,3 +12,10 @@ export interface CodeType {
     totalVotes: number;
     texts: TextType[];
 }
+
+export interface UserType {
+    _id: ObjectId;
+    added: boolean;
+    codes: ObjectId[];
+    ip: string;
+}

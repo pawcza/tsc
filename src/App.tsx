@@ -8,7 +8,7 @@ import {ConnectionState} from "components/ConnectionState";
 import {ConnectionManager} from "components/ConnectionManager";
 import CodesList from "components/CodesList";
 
-import {CodeType, TextType} from "types/db";
+import {CodeType, TextType, UserType} from "types/db";
 
 import logo from "images/logo.png";
 
@@ -25,7 +25,7 @@ export default function App() {
 
     const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
     const [codes, setCodes] = useState<CodeType[]>([]);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState<UserType>();
 
     useEffect(() => {
         socket.on("connect", onConnect);
@@ -69,7 +69,7 @@ export default function App() {
         setCodes([...updated]);
     };
 
-    const onInit = (codes: CodeType[], user) => {
+    const onInit = (codes: CodeType[], user: UserType) => {
         setCodes(codes);
         setUser(user);
     };
@@ -83,6 +83,10 @@ export default function App() {
         const updated = codes;
         const codeIndex = codes?.findIndex(({_id}) => _id === id);
         const textIndex = updated[codeIndex]?.texts.findIndex(({_id}) => _id === textId);
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setUser((user) => ({...user, codes: [...user.codes, id]}));
 
         if (inc) {
             updated[codeIndex].texts[textIndex].votes++;
@@ -99,6 +103,10 @@ export default function App() {
         const updated = codes;
         const codeIndex = codes?.findIndex(({_id}) => _id === id);
         updated[codeIndex].texts.push(text);
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setUser((user) => ({...user, added: true}));
         setCodes([...updated]);
     };
 
@@ -111,7 +119,7 @@ export default function App() {
     };
 
     return (
-        <div>
+        <>
             <GlobalStyle />
             {process.env.NODE_ENV === "development" && (
                 <>
@@ -119,24 +127,40 @@ export default function App() {
                     <ConnectionManager />
                 </>
             )}
-            <Header>The Stoner Codex</Header>
+            <Header>fourtwenty.army</Header>
             <Logo src={logo} />
-            <CodesList codes={codes} />
-        </div>
+            <Paragraph>
+                Welcome to <b>The Stoner Codex</b>.<br />
+                <br />
+                You can vote once on every code password and add one password every hour!<br />
+                <br />
+                As the content here is unregulated please be respectful. Peace :)
+            </Paragraph>
+            <CodesList codes={codes} user={user} />
+        </>
     );
 }
 
 export const Header = styled.h1`
+    padding-top: 1em;
     font-family: "Roboto Mono", monospace;
     text-align: center;
 `;
 
 export const Logo = styled.img`
-    padding: 1em 0;
+    padding-top: 1em;
     margin: 0 auto;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     width: 128px;
     height: 128px;
+`;
+
+export const Paragraph = styled.p`
+    margin: 0 auto;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    padding: 16px;
 `;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Code from "components/Code";
 
-const CodesList = ({codes}) => {
+const CodesList = ({codes, user}) => {
     const [items, setItems] = useState(codes.sort((a, b) => b.totalVotes - a.totalVotes));
 
     useEffect(() => {
@@ -21,6 +21,7 @@ const CodesList = ({codes}) => {
                         number={item.number}
                         texts={item.texts}
                         totalVotes={item.totalVotes}
+                        user={user}
                     />
                 </CodeItem>
             ))}
