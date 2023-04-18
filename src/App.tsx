@@ -40,7 +40,7 @@ export default function App() {
     const draw = {
         hidden: {pathLength: 0, pathOffset: -0.42, opacity: 0},
         visible: {
-            pathLength: 0.42,
+            pathLength: 0.38,
             pathOffset: 0,
             opacity: 1,
             transition: {
@@ -168,7 +168,7 @@ export default function App() {
             >
                 <motion.path
                     variants={draw}
-                    d="m 5 0 v 40 h 40 v 40 m 60 -5 h -40 v -35 h 40 v -35 h -40 m 60 0 h 40 v 70 h -40 v -75"
+                    d="m 5 0 v 40 h 40 v 40 m 60 -5 h -40 v -35 h 40 v -35 h -40 m 60 0 h 40 v 70 h -40 v -75 m 50 20 h 5"
                     fill="#ffffff"
                     stroke="#000000"
                     strokeWidth="10"
@@ -232,6 +232,7 @@ export const Paragraph = styled(motion.div)`
 export const ToggleRules = styled.span`
     color: lightskyblue;
     cursor: pointer;
+    user-select: none;
 `;
 
 export const Rules = styled(motion.p)`

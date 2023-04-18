@@ -42,6 +42,7 @@ const Counter = styled.div`
     font-weight: 700;
     color: ${({votes}) => (votes >= 0 ? "#5D9C59" : "#DF2E38")};
     padding: -28px 4px 0 4px;
+    margin-right: auto;
 
     > p {
         transition-duration: ${({direction}) => (direction === "" ? "0" : "0.3s")};

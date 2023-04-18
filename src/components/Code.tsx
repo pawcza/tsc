@@ -53,6 +53,7 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
                                             </VoteDown>
                                         </motion.div>
                                     )}
+                                    <Pusher/>
                                 </AnimatePresence>
                             </Votes>
                         </TextWrapper>
@@ -116,6 +117,7 @@ export const Votes = styled.div`
     height: 28px;
     display: flex;
     align-items: center;
+    justify-content: center;
     transition: 0.3s ease-out;
     ${({disabled}) =>
         disabled &&
@@ -134,10 +136,12 @@ export const VoteUp = styled(motion.span)`
     width: 28px;
     line-height: 28px;
     display: inline-block;
-    margin-right: 4px;
 
     &:hover {
         background: #f8f8f8;
     }
 `;
 export const VoteDown = styled(VoteUp)``;
+export const Pusher = styled.div`
+    margin-left: auto;
+`;
