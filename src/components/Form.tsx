@@ -5,28 +5,27 @@ import styled from "styled-components";
 import {socket} from "business/socket";
 import useOutsideClick from "../hooks/useOutsideClick";
 
-const Form = ({available, codeId, number}) => {
+const Form = ({codeId, number}) => {
     const [inputVal, setInputVal] = useState("");
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (available) {
+        if (inputVal.length <= 100) {
             setInputVal("");
             socket.emit("post", codeId, inputVal);
         }
     };
 
     return (
-        available && (
-            <StyledForm layout onSubmit={onSubmit}>
-                <Input
-                    layout
-                    value={inputVal}
-                    onChange={(e) => setInputVal(e.target.value)}
-                    placeholder={`${number} means...`}
-                />
-            </StyledForm>
-        )
+        <StyledForm layout onSubmit={onSubmit}>
+            <Input
+                layout
+                value={inputVal}
+                onChange={(e) => setInputVal(e.target.value)}
+                placeholder={`${number} means...`}
+                maxlength={100}
+            />
+        </StyledForm>
     );
 };
 
@@ -39,7 +38,7 @@ export const StyledForm = styled(motion.form)`
 
 export const Input = styled(motion.input)`
     font-size: 1em;
-    font-family: "Roboto Mono", monospace;
+    font-family: "Source Code Pro", "Adjusted Courier New Fallback";
     border: 0;
     line-height: 32px;
     min-width: 200px;

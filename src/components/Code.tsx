@@ -22,14 +22,7 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
     };
 
     return (
-        <Wrapper
-            axis="x"
-            values={items}
-            onReorder={setItems}
-            as={motion.ul}
-            ref={rowRef}
-            disabled={disabled}
-        >
+        <Wrapper axis="x" values={items} as={motion.ul} ref={rowRef} disabled={disabled}>
             <Left>
                 <Number>{number}</Number>
                 <VoteCounter votes={totalVotes} />
@@ -64,9 +57,7 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
                             </Votes>
                         </TextWrapper>
                     ))}
-                    {!user?.added && (
-                        <Form available={texts.length < 10} codeId={_id} number={number} />
-                    )}
+                    {!user?.added && texts.length <= 42 && <Form codeId={_id} number={number} />}
                 </AnimatePresence>
             </Right>
         </Wrapper>
@@ -101,8 +92,7 @@ export const Right = styled(motion.div)`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    overflow: hidden;
 `;
 
 export const TextWrapper = styled(Reorder.Item)`

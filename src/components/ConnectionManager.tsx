@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 
 import {socket} from "business/socket";
+
 export function ConnectionManager() {
     const [devMode, setDevMode] = useState(false);
     const handleChange = (e) => {
         setDevMode(e.target.checked);
         socket.emit("toggleDevMode", e.target.checked);
-    }
+    };
     const connect = () => socket.connect();
     const disconnect = () => socket.disconnect();
     const clearUserData = () => socket.emit("clearUserData");
