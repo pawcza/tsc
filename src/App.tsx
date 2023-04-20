@@ -110,9 +110,11 @@ export default function App() {
         const codeIndex = codes?.findIndex(({_id}) => _id === id);
         const textIndex = updated[codeIndex]?.texts.findIndex(({_id}) => _id === textId);
 
-        if (process.env.NODE_ENV !== "development" && user?._id === userId) {
+        if (user?._id === userId) {
+            console.log(user?._id, userId, textId);
             const updatedUser = {...user, codes: [...(user?.codes ?? []), id]};
             // TODO: Fix typescript error here
+            console.log(user, updatedUser);
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             setUser(updatedUser);
@@ -135,7 +137,7 @@ export default function App() {
         updated[codeIndex].texts.push(text);
         setCodes([...updated]);
 
-        if (process.env.NODE_ENV !== "development" && user?._id === userId) {
+        if (user?._id === userId) {
             // TODO: Fix typescript error here
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
