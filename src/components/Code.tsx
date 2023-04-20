@@ -19,7 +19,7 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
     }, [JSON.stringify(texts)]);
 
     const onVote = (codeId, textId, inc, text) => {
-        socket.emit("vote", codeId, textId, inc);
+        socket.emit("vote", codeId, textId, inc, user._id);
 
         if (!disabled) {
             ReactGA.event(inc ? "voteUp" : "voteDown", {
@@ -68,7 +68,7 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
                             </Votes>
                         </TextWrapper>
                     ))}
-                    {!user?.added && texts.length <= 42 && <Form key={`form-${_id}`} codeId={_id} number={number} />}
+                    {!user?.added && texts.length <= 42 && <Form key={`form-${_id}`} codeId={_id} number={number} userId={user._id}/>}
                 </AnimatePresence>
             </Right>
         </Wrapper>

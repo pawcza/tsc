@@ -103,13 +103,14 @@ export default function App() {
         id: ObjectId,
         textId: ObjectId,
         inc: boolean,
-        ignoreTotalVotes: boolean
+        ignoreTotalVotes: boolean,
+        userId: ObjectId
     ) => {
         const updated = codes;
         const codeIndex = codes?.findIndex(({_id}) => _id === id);
         const textIndex = updated[codeIndex]?.texts.findIndex(({_id}) => _id === textId);
 
-        if (process.env.NODE_ENV !== "development") {
+        if (process.env.NODE_ENV !== "development" && user?._id === userId) {
             const updatedUser = {...user, codes: [...(user?.codes ?? []), id]};
             // TODO: Fix typescript error here
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -128,13 +129,13 @@ export default function App() {
         setCodes([...updated]);
     };
 
-    const onReceivePost = (id: ObjectId, text: TextType) => {
+    const onReceivePost = (id: ObjectId, text: TextType, userId: ObjectId) => {
         const updated = codes;
         const codeIndex = codes?.findIndex(({_id}) => _id === id);
         updated[codeIndex].texts.push(text);
         setCodes([...updated]);
 
-        if (process.env.NODE_ENV !== "development") {
+        if (process.env.NODE_ENV !== "development" && user?._id === userId) {
             // TODO: Fix typescript error here
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
