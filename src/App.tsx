@@ -144,11 +144,11 @@ export default function App() {
     };
 
     const onReceiveAlreadyVoted = (id: ObjectId) => {
-        alert(`You've already voted on this code, wait until 4:20PM (GMT +1) to vote again!`);
+        alert(`You've already voted on this code, wait until full hour to vote again!`);
     };
 
     const onReceiveAlreadyAdded = () => {
-        alert(`You've already added a text today, wait until 4:20PM (GMT +1) to do so again!`);
+        alert(`You've already added a text today, wait until full hour to do so again!`);
     };
 
     return (
