@@ -5,14 +5,14 @@ import styled from "styled-components";
 import {socket} from "business/socket";
 import ReactGA from "react-ga4";
 
-const Form = ({codeId, number, userId}) => {
+const Form = ({codeId, number}) => {
     const [inputVal, setInputVal] = useState("");
     const onSubmit = (e) => {
         e.preventDefault();
 
         if (inputVal.length <= 100) {
             setInputVal("");
-            socket.emit("post", codeId, inputVal, userId);
+            socket.emit("post", codeId, inputVal);
 
             ReactGA.event("post", {
                 event_category: "codes",
