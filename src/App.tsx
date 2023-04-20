@@ -1,5 +1,4 @@
 import {motion} from "framer-motion";
-import logo from "images/logo.png";
 import {ObjectId} from "mongodb";
 import React, {useEffect, useState} from "react";
 import styled, {createGlobalStyle} from "styled-components";
@@ -110,12 +109,9 @@ export default function App() {
         const codeIndex = codes?.findIndex(({_id}) => _id === id);
         const textIndex = updated[codeIndex]?.texts.findIndex(({_id}) => _id === textId);
 
-        console.log(user?._id, userId);
         if (user?._id === userId) {
-            console.log(user?._id, userId, textId);
             const updatedUser = {...user, codes: [...(user?.codes ?? []), id]};
             // TODO: Fix typescript error here
-            console.log(user, updatedUser);
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             setUser(updatedUser);
