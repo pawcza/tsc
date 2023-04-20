@@ -110,7 +110,7 @@ export default function App() {
         const codeIndex = codes?.findIndex(({_id}) => _id === id);
         const textIndex = updated[codeIndex]?.texts.findIndex(({_id}) => _id === textId);
 
-        console.log(user?.id, userId);
+        console.log(user?._id, userId);
         if (user?._id === userId) {
             console.log(user?._id, userId, textId);
             const updatedUser = {...user, codes: [...(user?.codes ?? []), id]};
