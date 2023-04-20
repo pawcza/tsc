@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import {motion} from "framer-motion";
 import styled from "styled-components";
 
 import {socket} from "business/socket";
-import useOutsideClick from "../hooks/useOutsideClick";
+import ReactGA from "react-ga4";
 
 const Form = ({codeId, number}) => {
     const [inputVal, setInputVal] = useState("");
@@ -13,6 +13,12 @@ const Form = ({codeId, number}) => {
         if (inputVal.length <= 100) {
             setInputVal("");
             socket.emit("post", codeId, inputVal);
+
+            ReactGA.event("post", {
+                event_category: "codes",
+                codeId,
+                text: inputVal
+            })
         }
     };
 

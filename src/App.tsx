@@ -168,7 +168,7 @@ export default function App() {
             >
                 <motion.path
                     variants={draw}
-                    d="m 5 0 v 40 h 40 v 40 m 60 -5 h -40 v -35 h 40 v -35 h -40 m 60 0 h 40 v 70 h -40 v -75 m 50 20 h 5"
+                    d="m 5 0 v 40 h 40 v 40 m 60 -5 h -40 v -35 h 40 v -35 h -40 m 60 0 h 40 v 70 h -40 v -75"
                     fill="#ffffff"
                     stroke="#000000"
                     strokeWidth="10"

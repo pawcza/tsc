@@ -1,5 +1,5 @@
 import {AnimatePresence, Reorder} from "framer-motion";
-import React, {useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import styled from "styled-components";
 
 import Code from "components/Code";
@@ -44,7 +44,7 @@ const CodesList = ({codes, user}) => {
         >
             {items.map((item) => (
                 <CodeItem
-                    key={`code-${item._id}`}
+                    key={item._id}
                     dragListener={false}
                     value={item}
                     initial="hidden"
@@ -68,7 +68,7 @@ export default CodesList;
 
 export const CodeGroup = styled(Reorder.Group)``;
 
-export const CodeItem = styled(Reorder.Item)`
+export const CodeItem = styled(memo(Reorder.Item))`
     list-style: none;
     opacity: 0;
 `;

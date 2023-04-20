@@ -6,6 +6,7 @@ import {socket} from "business/socket";
 
 import Form from "components/Form";
 import VoteCounter from "components/VoteCounter";
+import ReactGA from "react-ga4";
 
 const Code = ({number, texts, totalVotes, _id, user}) => {
     const rowRef = useRef(null);
@@ -17,8 +18,17 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
         setItems([...sorted]);
     }, [JSON.stringify(texts)]);
 
-    const onVote = (codeId, textId, inc) => {
+    const onVote = (codeId, textId, inc, text) => {
         socket.emit("vote", codeId, textId, inc);
+
+        if (!disabled) {
+            ReactGA.event(inc ? "voteUp" : "voteDown", {
+                event_category: "codes",
+                codeId,
+                textId,
+                text
+            })
+        }
     };
 
     return (
@@ -45,20 +55,20 @@ const Code = ({number, texts, totalVotes, _id, user}) => {
                                     <VoteCounter votes={item.votes} />
                                     {!disabled && (
                                         <motion.div exit={{opacity: [null, 0], width: [null, 0]}}>
-                                            <VoteUp onClick={() => onVote(_id, item._id, true)}>
+                                            <VoteUp onClick={() => onVote(_id, item._id, true, item.text)}>
                                                 +
                                             </VoteUp>
-                                            <VoteDown onClick={() => onVote(_id, item._id, false)}>
+                                            <VoteDown onClick={() => onVote(_id, item._id, false, item.text)}>
                                                 -
                                             </VoteDown>
                                         </motion.div>
                                     )}
-                                    <Pusher/>
+                                    <Pusher />
                                 </AnimatePresence>
                             </Votes>
                         </TextWrapper>
                     ))}
-                    {!user?.added && texts.length <= 42 && <Form codeId={_id} number={number} />}
+                    {!user?.added && texts.length <= 42 && <Form key={`form-${_id}`} codeId={_id} number={number} />}
                 </AnimatePresence>
             </Right>
         </Wrapper>
